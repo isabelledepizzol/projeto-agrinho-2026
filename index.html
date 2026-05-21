@@ -1,12 +1,443 @@
-<section id="jogo-agrinho" class="section bg-dark-game">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrinho 2026 - Agro Forte, Futuro Sustentável</title>
+    <style>
+        /* ==========================================================================
+           1. ESTILOS VISUAIS (CSS)
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: #333;
+            line-height: 1.6;
+            background-color: #fcfdfc;
+        }
+
+        /* Cabeçalho / Navegação */
+        header {
+            background: #1e3f20;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #4caf50;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #4caf50;
+        }
+
+        /* Banner Principal */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            background: #4caf50;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn:hover {
+            background: #388e3c;
+            transform: translateY(-2px);
+        }
+
+        /* Seções Gerais */
+        .section {
+            padding: 70px 10%;
+            text-align: center;
+        }
+
+        .bg-light {
+            background: #f4f9f4;
+        }
+
+        .section h2 {
+            font-size: 36px;
+            color: #1e3f20;
+            margin-bottom: 20px;
+        }
+
+        .section p.sub-text {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* Grid de Inovação tecnológica */
+        .grid-inovacao {
+            display: flex;
+            justify-content: space-around;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            flex: 1;
+            min-width: 280px;
+            border-top: 6px solid #4caf50;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: #1e3f20;
+            margin-bottom: 15px;
+        }
+
+        /* Seção do Jogo Estilizada */
+        .bg-dark-game {
+            background: #142816;
+            color: white;
+        }
+
+        .bg-dark-game h2 {
+            color: #4caf50;
+        }
+
+        .bg-dark-game p.sub-text {
+            color: #b0cbb0;
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        canvas {
+            background: #1e3f20;
+            border: 4px solid #4caf50;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 100%;
+            cursor: pointer;
+        }
+
+        .game-ui {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        #score {
+            color: #4caf50;
+            font-size: 26px;
+        }
+
+        #btn-start {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #btn-start:hover {
+            background: #388e3c;
+            transform: scale(1.05);
+        }
+
+        .instrucoes-jogo {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #a0bca0;
+        }
+
+        /* Rodapé */
+        footer {
+            background: #0f2010;
+            color: #88a88a;
+            text-align: center;
+            padding: 25px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Agrinho<span>2026</span></div>
+        <nav>
+            <a href="#proposta">Proposta</a>
+            <a href="#inovacao">Tecnologia</a>
+            <a href="#jogo-agrinho">Jogar EcoHarvest</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Agro Forte, Futuro Sustentável</h1>
+            <p>Unindo a inovação digital, inteligência artificial e a preservação ambiental para impulsionar a agricultura do amanhã.</p>
+            <a href="#jogo-agrinho" class="btn">Testar Solução Interativa</a>
+        </div>
+    </section>
+
+    <section id="proposta" class="section">
+        <h2>O Desafio Agrinho 2026</h2>
+        <p class="sub-text">O tema deste ano nos desafia a produzir com inteligência. Nossa proposta foca no desenvolvimento de sistemas agrícolas inteligentes que eliminam o desperdício, otimizam recursos escassos e garantem a segurança alimentar de forma 100% limpa.</p>
+    </section>
+
+    <section id="inovacao" class="section bg-light">
+        <h2>Tecnologias de Impacto</h2>
+        <p class="sub-text">Como transformamos o Agrinho em ações práticas para o futuro sustentável?</p>
+        
+        <div class="grid-inovacao">
+            <div class="card">
+                <div class="card-icon">💧</div>
+                <h3>Hidroponia Vertical</h3>
+                <p>Cultivos em camadas verticais automatizadas, reduzindo em até 95% o consumo de água do planeta.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">☀️</div>
+                <h3>Energia Limpa</h3>
+                <p>Uso de matrizes solares integradas para alimentar os sensores e as luzes de LED das estufas do futuro.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🤖</div>
+                <h3>IA & IoT no Campo</h3>
+                <p>Sensores que avisam a hora exata da planta receber nutrientes, gerando desperdício zero.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="jogo-agrinho" class="section bg-dark-game">
         <h2>Mini-Game: EcoHarvest 2026</h2>
-        <p>Ajude a nossa fazenda vertical! Colete água (💧) e energia solar (☀️), mas desvie do desperdício e da poluição (🚫).</p>
+        <p class="sub-text">Ajude nossa Fazenda Vertical do Futuro! Mova a base para coletar Água (💧) e Sol (☀️) para ganhar pontos. Desvie dos Poluentes (🚫) para não prejudicar a plantação.</p>
         
         <div class="game-container">
             <canvas id="gameCanvas" width="400" height="400"></canvas>
+            
             <div class="game-ui">
                 <p>Pontuação: <span id="score">0</span></p>
                 <button id="btn-start" onclick="startGame()">Iniciar Jogo</button>
             </div>
+            <p class="instrucoes-jogo">No Computador: use as setas ◄ e ► do teclado. No Celular: Toque nas laterais esquerda/direita do quadrado.</p>
         </div>
     </section>
+
+    <footer>
+        <p>&copy; 2026 Projeto Agrinho - Desenvolvido com Propósito Sustentável para o GitHub.</p>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreDisplay = document.getElementById("score");
+
+        let score = 0;
+        let gameRunning = false;
+        let items = [];
+        let gameLoopId;
+        let spawnTimeoutId;
+
+        // Estrutura do Jogador (A Plataforma da Fazenda)
+        const player = {
+            x: 160,
+            y: 360,
+            width: 80,
+            height: 20,
+            speed: 25,
+            color: "#4caf50"
+        };
+
+        // Elementos do jogo
+        const itemTypes = [
+            { text: "💧", type: "good", points: 10 },
+            { text: "☀️", type: "good", points: 15 },
+            { text: "🚫", type: "bad", points: -20 }
+        ];
+
+        // Controle por Teclado
+        document.addEventListener("keydown", (e) => {
+            if (!gameRunning) return;
+            if (e.key === "ArrowLeft" && player.x > 0) {
+                player.x -= player.speed;
+            } else if (e.key === "ArrowRight" && player.x < canvas.width - player.width) {
+                player.x += player.speed;
+            }
+        });
+
+        // Controle por Toque / Clique (Mobile Friendly)
+        canvas.addEventListener("click", (e) => {
+            if (!gameRunning) return;
+            const rect = canvas.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            
+            if (clickX < canvas.width / 2 && player.x > 0) {
+                player.x -= player.speed * 1.2;
+            } else if (clickX >= canvas.width / 2 && player.x < canvas.width - player.width) {
+                player.x += player.speed * 1.2;
+            }
+        });
+
+        // Função para criar novos itens caindo
+        function spawnItem() {
+            if (!gameRunning) return;
+            
+            const randomType = itemTypes[Math.floor(Math.random() * itemTypes.length)];
+            items.push({
+                x: Math.random() * (canvas.width - 30) + 10,
+                y: 0,
+                size: 26,
+                speed: 3 + Math.random() * 4,
+                ...randomType
+            });
+
+            // Cria um novo item a cada 900 milissegundos
+            spawnTimeoutId = setTimeout(spawnItem, 900);
+        }
+
+        // Loop principal de renderização e física
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Desenhar a base do jogador
+            ctx.fillStyle = player.color;
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+            
+            // Texto em cima da base
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "bold 10px sans-serif";
+            ctx.fillText("AGRO-ECO", player.x + 12, player.y + 14);
+
+            // Gerenciar os itens na tela
+            for (let i = items.length - 1; i >= 0; i--) {
+                let item = items[i];
+                item.y += item.speed;
+
+                // Desenha o Emoji
+                ctx.font = `${item.size}px sans-serif`;
+                ctx.fillText(item.text, item.x, item.y);
+
+                // Verificação de colisão mecânica
+                if (
+                    item.y >= player.y - 10 && 
+                    item.y <= player.y + player.height &&
+                    item.x >= player.x - 15 && 
+                    item.x <= player.x + player.width
+                ) {
+                    score += item.points;
+                    if (score < 0) score = 0; // Evita pontuação negativa abaixo de zero
+                    scoreDisplay.textContent = score;
+                    
+                    // Efeito visual rápido de colisão alterando a cor do jogador temporariamente
+                    player.color = item.type === "good" ? "#81c784" : "#e57373";
+                    setTimeout(() => player.color = "#4caf50", 150);
+
+                    items.splice(i, 1);
+                    continue;
+                }
+
+                // Remove se passar dos limites inferiores do Canvas
+                if (item.y > canvas.height + 20) {
+                    items.splice(i, 1);
+                }
+            }
+
+            if (gameRunning) {
+                gameLoopId = requestAnimationFrame(update);
+            }
+        }
+
+        // Função disparada ao clicar no botão
+        function startGame() {
+            // Limpa instâncias e timers antigos para evitar bugs de velocidade acelerada
+            cancelAnimationFrame(gameLoopId);
+            clearTimeout(spawnTimeoutId);
+            
+            score = 0;
+            items = [];
+            player.x = 160;
+            scoreDisplay.textContent = score;
+            gameRunning = true;
+            
+            document.getElementById("btn-start").textContent = "Reiniciar Desafio";
+            
+            spawnItem();
+            update();
+        }
+
+        // Tela inicial estática no Canvas
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "16px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("Clique em 'Iniciar Jogo' para Começar!", canvas.width / 2, canvas.height / 2);
+    </script>
+</body>
+</html>
